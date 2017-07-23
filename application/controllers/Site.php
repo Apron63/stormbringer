@@ -40,12 +40,14 @@ class Site extends CI_Controller {
                 $this->load->model('feedback');
                 $this->load->library('session');
                 $this->feedback->fillRecord($data);
+
                 if ($this->feedback->insert()) {
                     $value = '<div class="alert alert-success" role="alert">' . 'Ваше сообщение успешно добавлено!' . '</div>';
-                    $this->session->set_flashdata('_flash', $value);
                 } else {
-                    echo 'No';
+                    $value = '<div class="alert alert-danger" role="alert">' . 'К сожалению, произошла трагическая ошибка!' . '</div>';
                 }
+                
+                $this->session->set_flashdata('_flash', $value);
                 $this->load->helper('url');
                 redirect('');
             }
