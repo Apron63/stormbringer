@@ -46,7 +46,7 @@ class Site extends CI_Controller {
                 } else {
                     $value = '<div class="alert alert-danger" role="alert">' . 'К сожалению, произошла трагическая ошибка!' . '</div>';
                 }
-                
+
                 $this->session->set_flashdata('_flash', $value);
                 $this->load->helper('url');
                 redirect('');
