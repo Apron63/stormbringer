@@ -74,17 +74,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Обратная связь</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="modal-body" id="examlpeModalContent">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary">Отправить</button>
+                -->
             </div>
         </div>
     </div>
@@ -99,8 +99,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php echo $this->session->flashdata('_flash');?>
         <?php }?>
         <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Отправить сообщение</button>-->
-        <button type="button" class="btn btn-primary" id="sendMessage">Отправить сообщение</button>
-        <a href="index.php/site/getform/">Test</a>
+        <p><button type="button" class="btn btn-primary" id="sendMessage">Отправить сообщение в модальном окне</button></p>
+        <p><a href="index.php/site/getform/" class="btn btn-success">Отправить сообщение на новой странице</a></p>
 	</div>
 
 	<p class="footer">Отладчик - затрачено времени <strong>{elapsed_time}</strong> секунд. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
@@ -112,8 +112,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script>
     $("#sendMessage").click(function(){
-        alert();
+        $.ajax({
+            url: "index.php/site/getform"
+        }).done(function(data){
+            modalData = data;
+            $("#exampleModal").modal("show");
+        }).fail(function(){
+            alert("Fail");
+        });
     })
+
+    $("#exampleModal").on("shown.bs.modal", function (event) {
+        $("#examlpeModalContent").html(modalData);
+    })
+
 </script>
 
 </body>

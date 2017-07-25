@@ -30,8 +30,20 @@ class Site extends CI_Controller {
         if ($data) {
             $this->load->library('form_validation');
 
+            $this->form_validation->set_rules('created_at', 'Дата записи', 'required', [
+                'required' => 'Поле должно быть заполнено : %s.<br>',
+            ]);
+
             $this->form_validation->set_rules('user_name', 'Имя пользователя', 'required', [
-                'required' => 'Поле должно быть заполнено : %s.',
+                'required' => 'Поле должно быть заполнено : %s.<br>',
+            ]);
+
+            $this->form_validation->set_rules('user_phone', 'Телефон пользователя', 'required', [
+                'required' => 'Поле должно быть заполнено : %s.<br>',
+            ]);
+
+            $this->form_validation->set_rules('message', 'Текст сообщения', 'required', [
+                'required' => 'Поле должно быть заполнено : %s.<br>',
             ]);
 
             if ($this->form_validation->run() == FALSE) {
